@@ -1,13 +1,15 @@
 local popup = require("plenary.popup")
 local M = {}
 
-local function create_window()
+local function create_window(yank_history)
+    yank_history = yank_history or {}
+    print(vim.inspect(yank_history))
+
     local width = 60
     local height = 10
     local borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
-    local bufnr = vim.api.nvim_create_buf(false, false)
 
-    local multiclip_win_id, _ = popup.create(bufnr, {
+    local multiclip_win_id = popup.create(yank_history, {
         title = "MultiClip",
         hightlight = "MultiClipWindow",
         line = math.floor(((vim.o.lines - height) / 2) - 1),
@@ -18,13 +20,13 @@ local function create_window()
     })
 
     return {
-        bufnr = bufnr,
+        bufnr = vim.api.nvim_win_get_buf(multiclip_win_id),
         win_id = multiclip_win_id,
     }
 end
 
-function M.toggle_quick_menu()
-    local win_info = create_window()
+function M.toggle_quick_menu(yank_history)
+    local win_info = create_window(yank_history)
     multiclip_win_id = win_info.win_id
     multiclip_bufh = win_info.bufnr
     vim.api.nvim_buf_set_keymap(multiclip_bufh, "n", "q",

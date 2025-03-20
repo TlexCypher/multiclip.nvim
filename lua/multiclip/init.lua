@@ -1,9 +1,5 @@
-local pickers = require("telescope.pickers")
-local finders = require("telescope.finders")
-local actions = require("telescope.actions")
-local action_state = require("telescope.actions.state")
-local conf = require("telescope.config").values
 local popup = require("multiclip.popup")
+local utils = require("multiclip.utils")
 
 local M = {}
 
@@ -18,7 +14,7 @@ M.setup = function(args)
     vim.api.nvim_create_autocmd("TextYankPost", {
         callback = function()
             local yanked_text = vim.fn.getreg("0")
-            table.insert(M.yank_history, 1, yanked_text)
+            table.insert(M.yank_history, 1, utils.trim(yanked_text))
             if #M.yank_history > 50 then
                 table.remove(M.yank_history, #M.yank_history)
             end
@@ -26,7 +22,7 @@ M.setup = function(args)
     })
 
     vim.api.nvim_create_user_command("MultiClip", function()
-        popup.toggle_quick_menu()
+        popup.toggle_quick_menu(M.yank_history)
     end, {})
 end
 
