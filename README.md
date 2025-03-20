@@ -6,7 +6,7 @@ clipper.nvim keeps a history of your past yanks, allowing you to easily pick and
 
 You don’t need to do anything special—just yank as usual, and clipper.nvim will automatically record your yank history.
 
-To access your past yanks, simply open Clipper.nvim’s dialog by running the clipper command. Navigate through your history and press Enter on the item you want to use. This will register it in both Neovim’s " register and the 0 register, so you can paste it instantly with p.
+To access your past yanks, simply open clipper.nvim’s dialog by running the clipper command. Navigate through your history and press Enter on the item you want to use. This will register it in both Neovim’s " register and the 0 register, so you can paste it instantly with p.
 
 It feels like having an infinite clipboard at your fingertips. Give it a try and see the magic for yourself! 🚀
 
