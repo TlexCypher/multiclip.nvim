@@ -7,10 +7,11 @@ local M = {}
 M.config = {}
 M.yank_history = hashset:new()
 
-M.callback = M.config.callback
+M.callback = nil
 
 M.setup = function(args)
     M.config = vim.tbl_deep_extend("force", M.config, args or {})
+    M.callback = M.config.callback
 
     local limit_size = M.config.limit or 10
 
