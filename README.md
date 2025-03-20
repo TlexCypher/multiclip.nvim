@@ -27,7 +27,25 @@ But you can change window size, and callback function when you hit enter on the 
 Below is a brief example.
 
 ```lua
-
+{
+  "TlexCypher/clipper.nvim",
+  lazy = false, -- lazy should not be true.
+  dependencies = { -- this is dependency for ui.
+      "nvim-lua/plenary.nvim"
+  },
+  config = function()
+    require("clipper").setup({
+        -- available option is here.
+        win_width = 80,
+        win_height = 20,
+        -- see plenary.nvim documentation.
+        borderchars = {"******", "#########3"}
+        callback = function() do
+        -- your desire when hit the enter on the plenary.nvim based dialog.
+        end
+    })
+  end
+}
 ```
 
 ## Contribution
