@@ -26,4 +26,12 @@ function HashSet:len()
     return self.size
 end
 
+function HashSet:to_list()
+    local list = {}
+    for key, _ in pairs(self.items) do
+        table.insert(list, key)
+    end
+    return list
+end
+
 return HashSet
