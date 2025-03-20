@@ -2,6 +2,16 @@
 **clipper.nvim** is the Neovim plugin to enhance Neovim's clipboard functionality.
 Clipper keeps track of **your yank history** and allowing you to access it through **Harpoon-like UI**.
 
+Clipper.nvim keeps a history of your past yanks, allowing you to easily pick and reuse previously copied text through an intuitive UI.
+
+You don’t need to do anything special—just yank as usual, and Clipper.nvim will automatically record your yank history.
+
+To access your past yanks, simply open Clipper.nvim’s dialog by running the Clipper command. Navigate through your history and press Enter on the item you want to use. This will register it in both Neovim’s " register and the 0 register, so you can paste it instantly with p.
+
+It feels like having an infinite clipboard at your fingertips. Give it a try and see the magic for yourself! 🚀
+
+
+
 ## Demo
 
 https://github.com/user-attachments/assets/0152b099-9eea-4774-9c55-f8c28b5950f5
