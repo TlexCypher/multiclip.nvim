@@ -3,13 +3,12 @@ local M = {}
 
 local function create_window(yank_history)
     yank_history = yank_history or {}
-    print(vim.inspect(yank_history))
 
     local width = 60
     local height = 10
     local borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
 
-    local multiclip_win_id = popup.create(yank_history, {
+    local multiclip_win_id = popup.create(yank_history:to_list(), {
         title = "MultiClip",
         hightlight = "MultiClipWindow",
         line = math.floor(((vim.o.lines - height) / 2) - 1),
@@ -29,6 +28,7 @@ function M.toggle_quick_menu(yank_history)
     local win_info = create_window(yank_history)
     multiclip_win_id = win_info.win_id
     multiclip_bufh = win_info.bufnr
+    vim.api.nvim_win_set_option(multiclip_win_id, "number", true)
     vim.api.nvim_buf_set_keymap(multiclip_bufh, "n", "q",
         string.format(":lua vim.api.nvim_win_close(%d, true)<CR>", multiclip_win_id), { noremap = true, silent = true }
     )
