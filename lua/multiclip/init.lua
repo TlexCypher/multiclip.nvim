@@ -11,7 +11,6 @@ M.yank_history = {}
 
 M.config = {}
 
-
 M.show_yank_history = function()
     pickers.new({}, {
         prompt_title = "Yank History",
