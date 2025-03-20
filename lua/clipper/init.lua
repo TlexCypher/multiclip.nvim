@@ -1,6 +1,6 @@
-local popup = require("multiclip.popup")
-local utils = require("multiclip.utils")
-local hashset = require("multiclip.hashset")
+local popup = require("clipper.popup")
+local utils = require("clipper.utils")
+local hashset = require("clipper.hashset")
 
 local M = {}
 
@@ -26,7 +26,7 @@ M.setup = function(args)
         end,
     })
 
-    vim.api.nvim_create_user_command("MultiClip", function()
+    vim.api.nvim_create_user_command("Clipper", function()
         popup.toggle_quick_menu(M.yank_history, M.config, M.callback)
     end, {})
 end
