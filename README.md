@@ -3,7 +3,10 @@
 Clipper keeps track of **your yank history** and allowing you to access it through **Harpoon-like UI**.
 
 ## Demo
-Comming soon...
+
+https://github.com/user-attachments/assets/0152b099-9eea-4774-9c55-f8c28b5950f5
+
+
 
 ## Installation and dependencies
 You can install **clipper.nvim** with major package manager, for instance Lazy.nvim.
