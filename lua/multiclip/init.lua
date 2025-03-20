@@ -9,7 +9,9 @@ M.yank_history = hashset:new()
 
 M.setup = function(args)
     M.config = vim.tbl_deep_extend("force", M.config, args or {})
+
     local limit_size = M.config.limit or 10
+
     vim.api.nvim_create_autocmd("TextYankPost", {
         callback = function()
             local yanked_text = vim.fn.getreg("0")

@@ -23,17 +23,19 @@ end
 local function eliminates(item, length_limit)
     local eliminated = ""
     local suffix = "..."
-    for _, codepoint in utf8.codepoint(item) do
+    local char_count = 0
+
+    for _, codepoint in utf8.codes(item) do
         local char = utf8.char(codepoint)
-        if #eliminated + #suffix + 1 > length_limit then
+        if char_count + 1 + utf8.len(suffix) > length_limit then
             break
         end
         eliminated = eliminated .. char
+        char_count = char_count + 1
     end
-    return eliminated + suffix
-end
 
---[[
+    return eliminated .. suffix
+end --[[
 -- NOTE:
 -- When using plenary.nvim as UI library, max width is not useful.
 -- So, if items would be longer than max width, library needs to wrap or eliminates it.
