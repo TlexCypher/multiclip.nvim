@@ -7,12 +7,17 @@ local M = {}
 M.config = {}
 M.yank_history = hashset:new()
 
+
+
 M.setup = function(args)
     M.config = vim.tbl_deep_extend("force", M.config, args or {})
     limit_size = M.config.limit or 10
     vim.api.nvim_create_autocmd("TextYankPost", {
         callback = function()
-            M.yank_history:add(utils.trim(vim.fn.getreg("0")))
+            local yanked_text = vim.fn.getreg("0")
+            local trimmed_text = utils.newline_escape(utils.trim(yanked_text))
+            print(vim.inspect(trimmed_text))
+            M.yank_history:add(trimmed_text)
             if M.yank_history:len() > limit_size then
                 table.remove(M.yank_history, #M.yank_history)
             end

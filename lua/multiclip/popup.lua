@@ -1,6 +1,7 @@
 local popup = require("plenary.popup")
 local M = {}
 
+--[[TODO: width, height, borderchars should be configurable.]] --
 local function create_window(yank_history)
     yank_history = yank_history or {}
 
