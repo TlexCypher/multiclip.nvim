@@ -23,7 +23,7 @@ M.setup = function(args)
     })
 
     vim.api.nvim_create_user_command("MultiClip", function()
-        popup.toggle_quick_menu(M.yank_history)
+        popup.toggle_quick_menu(M.yank_history, M.config)
     end, {})
 end
 

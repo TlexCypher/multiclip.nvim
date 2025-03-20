@@ -8,12 +8,12 @@ local utils = require("multiclip.utils")
 --]]
 local M = {}
 
-local function create_window(yank_history)
+local function create_window(yank_history, config)
     yank_history = yank_history or {}
 
-    local width = 60
-    local height = 10
-    local borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
+    local width = config.win_width or 60
+    local height = config.win_height or 10
+    local borderchars = config.borderchars or { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
 
     local displayable = utils.make_displayable(yank_history, width)
 
@@ -33,8 +33,8 @@ local function create_window(yank_history)
     }
 end
 
-function M.toggle_quick_menu(yank_history)
-    local win_info = create_window(yank_history)
+function M.toggle_quick_menu(yank_history, config)
+    local win_info = create_window(yank_history, config)
     local multiclip_win_id = win_info.win_id
     local multiclip_bufh = win_info.bufnr
 
