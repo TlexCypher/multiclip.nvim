@@ -1,21 +1,32 @@
 local popup = require("plenary.popup")
 local utils = require("multiclip.utils")
 
---[[
--- こんにちは
---
---
---]]
 local M = {}
 
-local function create_window(yank_history, config)
+local function get_displaied_vs_actual_hashmap(displayable, actual)
+    local hashmap = {}
+    assert(#displayable == #actual, "displayable size is not equal to actual size.")
+
+    for index, value in ipairs(displayable) do
+        hashmap[value] = actual[index]
+    end
+    return hashmap
+end
+
+
+local function create_window(yank_history, config, callback)
     yank_history = yank_history or {}
 
     local width = config.win_width or 60
     local height = config.win_height or 10
     local borderchars = config.borderchars or { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
-
     local displayable = utils.make_displayable(yank_history, width)
+    local displaied_vs_actual = get_displaied_vs_actual_hashmap(displayable, yank_history:to_list())
+    local cb = callback or function(_, value)
+        local want = utils.newline_unescape(displaied_vs_actual[value])
+        vim.fn.setreg('"', want)
+        vim.fn.setreg('0', want)
+    end
 
     local multiclip_win_id = popup.create(displayable, {
         title = "MultiClip",
@@ -25,6 +36,7 @@ local function create_window(yank_history, config)
         minwidth = width,
         minheight = height,
         borderchars = borderchars,
+        callback = cb,
     })
 
     return {
@@ -33,8 +45,8 @@ local function create_window(yank_history, config)
     }
 end
 
-function M.toggle_quick_menu(yank_history, config)
-    local win_info = create_window(yank_history, config)
+function M.toggle_quick_menu(yank_history, config, callback)
+    local win_info = create_window(yank_history, config, callback)
     local multiclip_win_id = win_info.win_id
     local multiclip_bufh = win_info.bufnr
 

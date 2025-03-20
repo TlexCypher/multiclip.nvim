@@ -7,6 +7,8 @@ local M = {}
 M.config = {}
 M.yank_history = hashset:new()
 
+M.callback = M.config.callback
+
 M.setup = function(args)
     M.config = vim.tbl_deep_extend("force", M.config, args or {})
 
@@ -25,7 +27,7 @@ M.setup = function(args)
     })
 
     vim.api.nvim_create_user_command("MultiClip", function()
-        popup.toggle_quick_menu(M.yank_history, M.config)
+        popup.toggle_quick_menu(M.yank_history, M.config, M.callback)
     end, {})
 end
 

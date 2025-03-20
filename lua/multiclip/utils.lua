@@ -10,6 +10,10 @@ function M.newline_escape(s)
     return s:gsub("\n", "\\n")
 end
 
+function M.newline_unescape(s)
+    return s:gsub("\\n", "\n")
+end
+
 --[[
 -- input:
 --  var: item
@@ -35,7 +39,9 @@ local function eliminates(item, length_limit)
     end
 
     return eliminated .. suffix
-end --[[
+end
+
+--[[
 -- NOTE:
 -- When using plenary.nvim as UI library, max width is not useful.
 -- So, if items would be longer than max width, library needs to wrap or eliminates it.
