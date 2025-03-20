@@ -38,11 +38,11 @@ Below is a brief example.
   },
   config = function()
     require("clipper").setup({
-        -- available option is here.
+        -- available options are here.
         win_width = 80,
         win_height = 20,
         -- see plenary.nvim documentation.
-        borderchars = {"******", "#########3"}
+        borderchars = {"******", "#########"}
         callback = function() do
         -- your desire when hit the enter on the plenary.nvim based dialog.
         end
