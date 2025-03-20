@@ -5,13 +5,16 @@ Clipper keeps track of **your yank history** and allowing you to access it throu
 ## Demo
 Comming soon...
 
-## Installation
+## Installation and dependencies
 You can install **clipper.nvim** with major package manager, for instance Lazy.nvim.
 #### Lazy.nvim ####
 ```lua
 {
   "TlexCypher/clipper.nvim",
-  lazy = false,
+  lazy = false, -- lazy should not be true.
+  dependencies = { -- this is dependency for ui.
+      "nvim-lua/plenary.nvim"
+  },
   config = function()
     require("clipper").setup()
   end
