@@ -2,6 +2,8 @@ local popup = require("plenary.popup")
 local utils = require("clipper.utils")
 
 local M = {}
+M.clipper_win_id = nil
+M.clipper_bufh = nil
 
 local function get_displaied_vs_actual_hashmap(displayable, actual)
     local hashmap = {}
@@ -46,16 +48,21 @@ local function create_window(yank_history, config, callback)
 end
 
 function M.toggle_quick_menu(yank_history, config, callback)
+    if M.clipper_win_id and vim.api.nvim_win_is_valid(M.clipper_win_id) then
+        vim.api.nvim_win_close(M.clipper_win_id, true)
+        M.clipper_win_id = nil
+        return
+    end
     local win_info = create_window(yank_history, config, callback)
-    local clipper_win_id = win_info.win_id
-    local clipper_bufh = win_info.bufnr
+    M.clipper_win_id = win_info.win_id
+    M.clipper_bufh = win_info.bufnr
 
-    vim.api.nvim_win_set_option(clipper_win_id, "number", true)
-    vim.api.nvim_buf_set_keymap(clipper_bufh, "n", "q",
-        string.format(":lua vim.api.nvim_win_close(%d, true)<CR>", clipper_win_id), { noremap = true, silent = true }
+    vim.api.nvim_win_set_option(M.clipper_win_id, "number", true)
+    vim.api.nvim_buf_set_keymap(M.clipper_bufh, "n", "q",
+        string.format(":lua vim.api.nvim_win_close(%d, true)<CR>", M.clipper_win_id), { noremap = true, silent = true }
     )
-    vim.api.nvim_buf_set_keymap(clipper_bufh, "n", "<ESC>",
-        string.format(":lua vim.api.nvim_win_close(%d, true)<CR>", clipper_win_id), { noremap = true, silent = true }
+    vim.api.nvim_buf_set_keymap(M.clipper_bufh, "n", "<ESC>",
+        string.format(":lua vim.api.nvim_win_close(%d, true)<CR>", M.clipper_win_id), { noremap = true, silent = true }
     )
 end
 
