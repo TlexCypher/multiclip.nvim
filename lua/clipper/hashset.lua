@@ -34,4 +34,20 @@ function HashSet:to_list()
     return list
 end
 
+function HashSet:merge(_hs1, _hs2)
+    local merged = HashSet:new()
+    local hs1 = _hs1 or {}
+    local hs2 = _hs2 or {}
+
+    for key, _ in pairs(hs1.items or {}) do
+        merged:add(key)
+    end
+
+    for key, _ in pairs(hs2.items or {}) do
+        merged:add(key)
+    end
+
+    return merged
+end
+
 return HashSet

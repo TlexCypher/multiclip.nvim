@@ -54,6 +54,9 @@ Below is a brief example.
         win_height = 20,
         -- see plenary.nvim documentation.
         borderchars = {"******", "#########"}
+        -- default is true.
+        -- If yank_only is true,copied contents by pressing d, c key etc are not registered.
+        yank_only = false, 
         callback = function() do
         -- your desire when hit the enter on the plenary.nvim based dialog.
         end

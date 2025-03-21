@@ -54,7 +54,7 @@ end
 -- ]] --
 function M.make_displayable(yank_history, max_width)
     local displayable = {}
-    for yh, _ in pairs(yank_history.items) do
+    for yh, _ in pairs(yank_history.items or {}) do
         local item = yh
         if #item > max_width then
             item = eliminates(item, max_width)
@@ -62,6 +62,13 @@ function M.make_displayable(yank_history, max_width)
         table.insert(displayable, item)
     end
     return displayable
+end
+
+function M.make_displayable_text(text, max_width)
+    if #text > max_width then
+        text = eliminates(text, max_width)
+    end
+    return text
 end
 
 return M
