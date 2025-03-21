@@ -17,6 +17,10 @@ M.setup = function(args)
 
     vim.api.nvim_create_autocmd("TextYankPost", {
         callback = function()
+            -- TODO: Make configurable.
+            if vim.v.event.operator ~= "y" then
+                return
+            end
             local yanked_text = vim.fn.getreg("0")
             local trimmed_text = utils.newline_escape(utils.trim(yanked_text))
 
