@@ -1,5 +1,3 @@
-local utf8 = require("lua-utf8")
-
 local M = {}
 
 function M.trim(s)
@@ -25,20 +23,23 @@ end
 --  To handle Japanese and other special characters, we need to handle multi-byte.
 --]] --
 local function eliminates(item, length_limit)
-    local eliminated = ""
     local suffix = "..."
-    local char_count = 0
+    local suffix_len = utf8.len(suffix)
 
-    for _, codepoint in utf8.codes(item) do
-        local char = utf8.char(codepoint)
-        if char_count + 1 + utf8.len(suffix) > length_limit then
-            break
-        end
-        eliminated = eliminated .. char
-        char_count = char_count + 1
+    local chars_to_keep = length_limit - suffix_len
+
+    -- NOTE: This case is not happend, but might be handled as a software.
+    if chars_to_keep < 1 then
+        return "" .. suffix
     end
 
-    return eliminated .. suffix
+    local total_len = utf8.len(item)
+    if total_len <= chars_to_keep then
+        return item
+    else
+        local eliminated_part = utf8.sub(item, 1, chars_to_keep)
+        return eliminated_part .. suffix
+    end
 end
 
 --[[
